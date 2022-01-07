@@ -20,6 +20,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {API_URL} from "@env"
 
 export default class Account extends Component {
   constructor(props) {
@@ -67,7 +68,7 @@ export default class Account extends Component {
 
   userDetails() {
     fetch(
-      `https://api.libcon.in/api/getResponse?rptName=LIBCON-PATINFO&parameter=${this.state.email}`,
+      `${API_URL}LIBCON-PATINFO&parameter=${this.state.email}`,
       {
         method: 'GET',
         headers: {
@@ -103,7 +104,7 @@ export default class Account extends Component {
   currentIssuedBook() {
     console.log("check id:0------------", this.state.id);
     fetch(
-      `https://api.libcon.in/api/getResponse?rptName=LIBCON-ISSUED&parameter=${this.state.id}`,
+      `${API_URL}LIBCON-ISSUED&parameter=${this.state.id}`,
       {
         method: 'GET',
         headers: {
@@ -140,7 +141,7 @@ export default class Account extends Component {
   oldIssuedBook() {
     console.log(this.state.id);
     fetch(
-      `https://api.libcon.in/api/getResponse?rptName=LIBCON-OLDISSUED&parameter=${this.state.id}`,
+      `${API_URL}LIBCON-OLDISSUED&parameter=${this.state.id}`,
       {
         method: 'GET',
         headers: {
@@ -158,7 +159,7 @@ export default class Account extends Component {
               this.setState({
                 oldIssued: resp.data.response,
 
-                loader: false,
+                // loader: false,
               });
             }
           } else {
@@ -192,7 +193,7 @@ export default class Account extends Component {
           loader: false,
         });
       }
-    }, 4000);
+    }, 8000);
   }
 
   showCBook() {

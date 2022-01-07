@@ -27,6 +27,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 import BcryptReactNative from 'bcrypt-react-native';
+import {API_URL} from "@env"
 
 export default class LogInNew extends Component {
   constructor(props) {
@@ -118,9 +119,9 @@ export default class LogInNew extends Component {
   signIn() {
     this.setState({ loader: true });
     // console.log(this.state.email, this.state.pass, this.state.purposeValue);
-    
+
     fetch(
-      `https://api.libcon.in/api/getResponse?rptName=LIBCON-PATINFO&parameter=${this.state.email}`,
+      `${API_URL}LIBCON-PATINFO&parameter=${this.state.email}`,
       {
         method: 'GET',
         headers: {
@@ -131,74 +132,80 @@ export default class LogInNew extends Component {
     )
       .then(result => {
         result.json().then(async resp => {
-          console.log("resp : ", resp.data.response[0]);
-          if (resp.length !== 0) {
-            try {
-              await AsyncStorage.setItem('userId', JSON.stringify(resp.data.response[0][0]));
-              await AsyncStorage.setItem('sName', JSON.stringify(resp.data.response[0][2]));
-              await AsyncStorage.setItem('sNameLast', JSON.stringify(resp.data.response[0][3]));
-
-            } catch (error) {
-              console.log("try : ", error)
-            }
-
-            const sname = resp.data.response[0][4];
-            // console.log('resp : ', sname);
-
-            if (this.state.email === sname) {
-
+          // console.log("resp : ", resp.data.response[0]);
+          if(resp.status === "success"){
+            if (resp.length !== 0) {
               try {
-                const salt = await BcryptReactNative.getSalt(10);
-                const hash = (salt, resp.data.response[0][5]);
-                const isSame = await BcryptReactNative.compareSync(
-                  this.state.pass,
-                  hash,
-                );
-
-                if (isSame === true) {
-
-                  await AsyncStorage.setItem('email', JSON.stringify(resp.data.response[0][4]));
-                  
-                  this.setState({
-                    userData: resp.data.response[0],
-                  });
-
-                  this.props.navigation.push('Home');
-
-                } else {
-                  Alert.alert("", "Please enter your correct account details to login.", [
-                    { text: 'Okay' }
-                  ], { cancelable: true })
+                await AsyncStorage.setItem('userId', JSON.stringify(resp.data.response[0][0]));
+                await AsyncStorage.setItem('sName', JSON.stringify(resp.data.response[0][2]));
+                await AsyncStorage.setItem('sNameLast', JSON.stringify(resp.data.response[0][3]));
+  
+              } catch (error) {
+                console.log("try : ", error)
+              }
+  
+              const sname = resp.data.response[0][4];
+              // console.log('resp : ', sname);
+  
+              if (this.state.email === sname) {
+  
+                try {
+                  const salt = await BcryptReactNative.getSalt(10);
+                  const hash = (salt, resp.data.response[0][5]);
+                  const isSame = await BcryptReactNative.compareSync(
+                    this.state.pass,
+                    hash,
+                  );
+  
+                  if (isSame === true) {
+  
+                    await AsyncStorage.setItem('email', JSON.stringify(resp.data.response[0][4]));
+  
+                    this.setState({
+                      userData: resp.data.response[0],
+                    });
+  
+                    this.props.navigation.push('Home');
+  
+                  } else {
+                    Alert.alert("", "Please enter your correct account details to login.", [
+                      { text: 'Okay' }
+                    ], { cancelable: true })
+                    this.setState({
+                      loader: false,
+                    });
+                  }
+  
                   this.setState({
                     loader: false,
                   });
+                } catch (e) {
+                  console.log({ e });
                 }
-
+              } else {
+                Alert.alert('', 'Please enter your correct account details to login.');
                 this.setState({
                   loader: false,
                 });
-              } catch (e) {
-                console.log({ e });
               }
-            } else {
-              Alert.alert('', 'Please enter your correct account details to login.');
-            }
-          } else {
+            } 
+          }else {
             this.setState({
               loader: false,
             });
-            ToastAndroid.showWithGravity(
+            ToastAndroid.show(
               'Please enter your correct account details to login.',
-              ToastAndroid.SHORT,
+              ToastAndroid.LONG,
               ToastAndroid.CENTER,
             );
           }
+          
         });
       })
       .catch(error => {
-        ToastAndroid.showWithGravity(
+        ToastAndroid.show(
           resp.message,
-          ToastAndroid.SHORT,
+          ToastAndroid.LONG,
           ToastAndroid.CENTER,
         );
         this.setState({
@@ -231,8 +238,8 @@ export default class LogInNew extends Component {
     return (
       <>
         {this.state.showPage ? (
-          <Animatable.View
-            animation="fadeInRight" duration={400}
+          <View
+            
             style={styles.container}>
             <StatusBar backgroundColor="#fff9" barStyle="dark-content" />
 
@@ -271,7 +278,7 @@ export default class LogInNew extends Component {
               </>
             ) : null}
 
-            <Animatable.View style={[styles.footer]} animation="fadeInUpBig" duration={900} >
+            <Animatable.View style={[styles.footer]} animation="fadeInUpBig" duration={1000} >
               <ScrollView showsVerticalScrollIndicator={false}>
 
                 <View>
@@ -387,7 +394,7 @@ export default class LogInNew extends Component {
                 </View>
               </ScrollView>
             </Animatable.View>
-          </Animatable.View>
+          </View>
         ) : null}
       </>
     );

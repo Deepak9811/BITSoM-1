@@ -23,6 +23,7 @@ import LinearGradient from 'react-native-linear-gradient';
 // import * as Animatable from 'react-native-animatable';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {API_URL} from "@env"
 
 export default class Profile extends Component {
   constructor(props) {
@@ -73,7 +74,7 @@ export default class Profile extends Component {
   userDetails() {
     console.log('email : ', this.state.email);
     fetch(
-      `https://api.libcon.in/api/getResponse?rptName=LIBCON-PATINFO&parameter=${this.state.email}`,
+      `${API_URL}LIBCON-PATINFO&parameter=${this.state.email}`,
       {
         method: 'GET',
         headers: {

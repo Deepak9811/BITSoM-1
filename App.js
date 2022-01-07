@@ -20,6 +20,7 @@ import Account from './components/Account';
 import LogInNew from './components/LogInNew';
 import OpenBook from './components/eresource/OpenBook';
 import OpacNext from './components/opac/OpacNext';
+import slider from './components/slider';
 
 
 console.disableYellowBox = true;
@@ -51,6 +52,7 @@ export default class App extends Component {
             <Stack.Screen name="Contact" component={Contact} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Accountss" component={Account} />
+            <Stack.Screen name="Slider" component={slider} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

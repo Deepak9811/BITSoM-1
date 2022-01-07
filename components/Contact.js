@@ -6,18 +6,14 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Linking,
-  ScrollView,
+  ScrollView,Image
 } from 'react-native';
 
 import { Appbar } from 'react-native-paper';
-import Feather from 'react-native-vector-icons/Feather';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-// import LinearGradient from 'react-native-linear-gradient';
-// import * as Animatable from 'react-native-animatable';
+
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-// import MapView from 'react-native-maps';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -62,11 +58,11 @@ export default class Contact extends Component {
           <ScrollView
             showsVerticalScrollIndicator={false}
             contentContainerStyle={{ flexGrow: 1 }}>
-            {this.state.loader && (
+            {/* {this.state.loader && (
               <View style={styles.activityIndicatorStyle}>
                 <ActivityIndicator color="#57A3FF" size="large" />
               </View>
-            )}
+            )} */}
 
 
 
@@ -80,6 +76,8 @@ export default class Contact extends Component {
                 <Text style={{ marginTop: 10, color: '#8A8A8A' }}>
                   Welcome to Learning Resource Center, BITSoM, Mumbai{' '}
                 </Text>
+
+
 
 
                 <Text style={{ marginTop: 10, color: '#8A8A8A' }}>Given below is the contact information for your library.</Text>
@@ -110,7 +108,7 @@ export default class Contact extends Component {
                 </View>
               </View>
 
-              <View style={{ margin: 0 }}>
+              {/* <View style={{ margin: 0 }}>
                 <WebView
                   scalesPageToFit={true}
                   bounces={false}
@@ -137,9 +135,9 @@ export default class Contact extends Component {
                   }}
                   automaticallyAdjustContentInsets={false}
                 />
-              </View>
+              </View> */}
 
-              <View style={styles.buttonMap}>
+              {/* <View style={styles.buttonMap}>
                 <TouchableOpacity
                   style={styles.buttonStyle}
                   onPress={() =>
@@ -147,7 +145,7 @@ export default class Contact extends Component {
                   }>
                   <Text style={{ fontSize: 16, color: '#252a60' }}>Open Map</Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
 
             

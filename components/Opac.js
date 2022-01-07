@@ -16,6 +16,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import { Picker as SelectPicker } from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import {API_URL} from "@env"
+
 export default class About extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +44,7 @@ export default class About extends Component {
       this.setState({
         name: sName + ' ' + sNameLast,
       });
-      console.log('name : ', this.state.name);
+      // console.log('name : ', this.state.name);
     } catch (error) {
       console.log('There has problem in AsyncStorage : ' + error.message);
     }
@@ -54,7 +56,7 @@ export default class About extends Component {
         { text: 'Okay' }
       ], { cancelable: true })
     } else {
-      console.log("bookType data :---", this.state.bookType)
+      // console.log("bookType data :---", this.state.bookType)
       this.searchVisitor()
     }
   }
@@ -75,7 +77,7 @@ export default class About extends Component {
       // sParameter = encodeURIComponent(sParameter.trim());
 
       fetch(
-        `https://api.libcon.in/api/getResponse?rptName=LIBCON-OPAC-${this.state.bookType}&parameter=${this.state.searchMeeting}`,
+        `${API_URL}LIBCON-OPAC-${this.state.bookType}&parameter=${this.state.searchMeeting}`,
         {
           method: 'GET',
           headers: {
@@ -86,7 +88,7 @@ export default class About extends Component {
       )
         .then(data => {
           data.json().then(resp => {
-            console.log('searcher =>', resp.data);
+            // console.log('searcher =>', resp.data);
 
             if (resp.status === "success") {
               if (resp.data.response.length > 0) {
@@ -326,10 +328,10 @@ export default class About extends Component {
                             if(item[2] === null){
                               this.state.showitem = false
                              
-                              console.log("empty",this.state.showitem)
+                              // console.log("empty",this.state.showitem)
                             }else{
                               this.state.showitem = true
-                              console.log("data",this.state.showitem)
+                              // console.log("data",this.state.showitem)
                             }
 
                           }
