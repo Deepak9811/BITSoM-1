@@ -21,14 +21,20 @@ import LogInNew from './components/LogInNew';
 import OpenBook from './components/eresource/OpenBook';
 import OpacNext from './components/opac/OpacNext';
 import slider from './components/slider';
+import Pagination from './components/pagination/Pagination';
+import Posts from './components/pagination/Post';
 
 
 console.disableYellowBox = true;
 
 export default class App extends Component {
   componentDidMount() {
+
+    setTimeout(() => {
+      
+      SplashScreen.hide();
+    }, 1000);
   
-    SplashScreen.hide();
   }
 
   render() {
@@ -53,6 +59,8 @@ export default class App extends Component {
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Accountss" component={Account} />
             <Stack.Screen name="Slider" component={slider} />
+            <Stack.Screen name="Pagination" component={Pagination} />
+            <Stack.Screen name="Post" component={Posts} />
           </Stack.Navigator>
         </NavigationContainer>
       </SafeAreaProvider>

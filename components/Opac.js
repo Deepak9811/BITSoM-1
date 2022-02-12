@@ -61,6 +61,7 @@ export default class About extends Component {
     }
   }
 
+  
   async searchVisitor(value) {
     this.setState({
       listArray: [],
@@ -88,7 +89,7 @@ export default class About extends Component {
       )
         .then(data => {
           data.json().then(resp => {
-            // console.log('searcher =>', resp.data);
+            console.log('searcher =>', resp.data);
 
             if (resp.status === "success") {
               if (resp.data.response.length > 0) {
@@ -107,6 +108,7 @@ export default class About extends Component {
               );
               this.setState({
                 searchLoader: false,
+                message: 'Sorry, We could not find any results for your search criteria. Please try again.',
               });
             }
           });
