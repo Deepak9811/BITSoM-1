@@ -7,67 +7,88 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, showPages, postsPerPag
     const [purposeData, setPurposeData] = useState([{ type: "20", id: "1" }, { type: "50", id: "2" }, { type: "100", id: "3" }]);
 
     const [purposeIndexValue, setPurposeIndexValue] = useState("")
+    const [opacityIndicator, setopacityIndicator] = useState(true)
+    const [greaterIndicator, setgreaterIndicator] = useState(false)
     const [purposeName, setpurposeName] = useState(20)
     const [disble, setdisble] = useState(false)
     const [count, setcount] = useState(1)
 
-    console.log("postsPerPages ;- ", postsPerPages)
-
-
     const pageNumbers = [];
-
-
 
     for (let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++) {
         pageNumbers.push(i);
     }
 
-    console.log("pageNumbers ;- ", pageNumbers)
-
-
     const onPickerValue = (value, index) => {
+
         setPurposeIndexValue(value)
         setdisble(true)
-        // setpurposeName(Number(purposeData[index - 1].type))
-
         postsPerPages(Number(purposeData[index - 1].type))
 
-        console.log(value, index, "purposeName :- ", purposeName, ", ", )
-        console.log("pageNumbers :- ",pageNumbers[index])
+        if (Number(purposeData[index - 1].type) === 20) {
+            setgreaterIndicator(false)
+            paginate(1)
+        } else if (Number(purposeData[index - 1].type) === 50) {
+
+            if (totalPosts === Number(purposeData[index - 1].type)) {
+                setopacityIndicator(true)
+                setgreaterIndicator(true)
+                paginate(index - 1)
+            } else {
+                setgreaterIndicator(false)
+            }
+        } else if (Number(purposeData[index - 1].type) === 100) {
+            setopacityIndicator(true)
+            setgreaterIndicator(true)
+            paginate(1)
+        }
+
     }
 
 
     const getNumberLess = () => {
-
+        const lessCount = Number(count) - 1
         if (count === 1) {
             setcount(count)
             paginate(count)
-            // alert("Less " + count)
+            setopacityIndicator(true)
         } else {
-            setcount(count - 1)
-
+            setcount(lessCount)
+            setgreaterIndicator(false)
             paginate(count - 1)
-            // alert("Less " + count)
+            checkLess(lessCount)
         }
-
-        // paginate(count)
-
-
-
     }
 
+    const checkLess = (lessCount) => {
+        if (lessCount === 1) {
+            setopacityIndicator(true)
+            console.log("counting :-- ", count)
+        }else{
+            console.log("cheking so sad ",count)
+        }
+    }
 
     const getNumber = () => {
-        if (count === pageNumbers.length) {
-            setcount(count)
-            paginate(count)
-            // alert("Greater " + count)
+        const adCount = Number(count) + 1
+        if (count === Number(pageNumbers.length)) {
+            setopacityIndicator(false)
+            setgreaterIndicator(true)
         } else {
-            setcount(count + 1)
-            paginate(count + 1)
-            // alert("Greater " + count)
+            setcount(adCount);
+            paginate(Number(count) + 1)
+            setopacityIndicator(false)
+            checkGreater(adCount)
         }
+    }
 
+    const checkGreater = (adCount) => {
+        if (adCount === (pageNumbers.length)) {
+            setopacityIndicator(false)
+            setgreaterIndicator(true)
+        }else{
+            console.log("cheking so sad ",count)
+        }
     }
 
 
@@ -77,18 +98,14 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, showPages, postsPerPag
         <View style={styles.container}>
             {showPages ? (
                 <>
-
-
-
-                    {/* <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}> */}
-
                     <View style={styles.pagination}>
 
-                        <TouchableOpacity style={styles.leftI} onPress={() => getNumberLess()}>
+                        <TouchableOpacity disabled={opacityIndicator ? true : false} style={styles.leftI} onPress={() => getNumberLess()}>
                             <Feather
                                 name="chevrons-left"
                                 color="#FF5733"
                                 size={35}
+                                style={{ opacity: opacityIndicator ? 0.1 : 1 }}
 
                             />
                         </TouchableOpacity>
@@ -114,69 +131,22 @@ const Pagination = ({ postsPerPage, totalPosts, paginate, showPages, postsPerPag
                             </SelectPicker>
                         </View>
 
-
-
-
-
-                        {/* {pageNumbers.map((number) => (
-                                <View style={styles.page_item}>
-                                    <TouchableOpacity onPress={() => paginate(number)} style={styles.page_link}>
-                                        <Text style={{ margin: 10 }}>
-                                            {number}
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-
-                            ))} */}
-
-
-
-                        <TouchableOpacity style={styles.leftI} onPress={() => getNumber()}>
+                        <TouchableOpacity disabled={greaterIndicator ? true : false} style={styles.leftI} onPress={() => getNumber()}>
                             <Feather
                                 name="chevrons-right"
                                 color="#FF5733"
                                 size={35}
-                                style={styles.leftI}
+                                style={[styles.leftI, { opacity: greaterIndicator ? 0.1 : 1 }]}
                             />
                         </TouchableOpacity>
 
-
-
-
-
-
-
                     </View>
-                    {/* </ScrollView> */}
-
                     {pageNumbers.map((item, i) => {
                         console.log("page number :- ", item.toString(), ", ", i + 1)
                     })}
-
-
-
-
                 </>
 
             ) : null}
-
-
-            {/* <View
-                style={{
-                    paddingHorizontal: 5,
-                    paddingVertical: 8,
-                }}>
-                <TouchableOpacity
-                    style={{
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                    <Text>In Association with </Text>
-                    <Text style={{ color: '#f68823' }}> Refread</Text>
-                </TouchableOpacity>
-            </View> */}
-
 
         </View>
     );
@@ -191,39 +161,23 @@ const styles = StyleSheet.create({
         marginRight: "5%"
     },
     pagination: {
-        // flex: 1,
         flexDirection: "row",
-        // width: "100%",
         marginBottom: "10%",
-
         paddingVertical: 10,
         justifyContent: "space-between"
-
-
-
     },
     page_link: {
-        // width: "100%",
         color: "#0d6efd",
-        // borderWidth: 1,
         borderBottomWidth: 1,
         borderBottomColor: "#FF3A00"
-
-
     },
     page_item: {
-        // width:"100%",
-        // backgroundColor: "red",
         margin: 5,
         marginRight: 15
     },
     pkr: {
         width: '68%',
         marginTop: 8,
-        // marginLeft: 20,
-        // marginRight: 20,
-        // borderWidth:1,
-        // borderColor: 'black',
         borderRadius: 5,
         alignSelf: 'center',
         backgroundColor: '#f3f3f3',

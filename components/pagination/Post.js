@@ -341,7 +341,8 @@ export default class Post extends Component {
 
                                     {this.props.posts.map((item, i) => {
                                         {
-                                            console.log(item.title.length)
+                                            // console.log(item.title.length)
+                                            // console.log("total post :- ",this.props.postslength)
                                             if (item.title.length > 0) {
                                                 this.state.loader = false
                                             }

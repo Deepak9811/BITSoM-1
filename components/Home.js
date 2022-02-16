@@ -96,10 +96,19 @@ export default class Home extends Component {
 
 
   _renderItem = ({ item, index }) => {
+
+    {
+      if (item.photo === "https://bitsomapi.libcon.in/Images/NoPhoto.png") {
+        this.state.showImage = false
+      } else {
+        this.state.showImage = true
+      }
+    }
+
     return (
       <React.Fragment key={index}>
 
-        <TouchableOpacity style={{ borderRadius: 8, }} onPress={() => this.getBiblionumber(item)}>
+        <TouchableOpacity style={{ borderRadius: 8, marginBottom: "10%" }} onPress={() => this.getBiblionumber(item)}>
           <View style={[{ marginTop: "5%", alignItems: "center", justifyContent: "center", borderBottomRightRadius: 8, borderBottomLeftRadius: 8 }]}>
             <View style={{
               borderRadius: 8, shadowColor: '#000',
@@ -108,9 +117,22 @@ export default class Home extends Component {
               shadowRadius: 2,
               elevation: 5
             }}>
-              <Image style={{ width: 150, height: 200, borderTopLeftRadius: 8, borderTopRightRadius: 8 }} source={{ uri: item.photo }} />
-              <Text style={{ backgroundColor: "#fff", padding: 5 }}>{item.title}</Text>
-              <Text style={{ backgroundColor: "#fff", paddingTop: 2, paddingLeft: 5, paddingBottom: 5 }}>{item.author}</Text>
+              <Image style={{ display: this.state.showImage ? "flex" : "none", width: 150, height: 200, borderTopLeftRadius: 8, borderTopRightRadius: 8 }} source={{ uri: item.photo }} />
+
+
+              {!this.state.showImage ? (
+                <View style={{ height: 200, backgroundColor: "#fff", justifyContent: "center", alignItems: "center", padding: 5 }}>
+
+                  <Text style={{ padding: 5 }}>{item.item.title}</Text>
+                  <Text style={{ paddingTop: 2, paddingLeft: 5, paddingBottom: 5 }}>{item.item.author}</Text>
+
+                </View>
+              ) :
+                null
+              }
+
+
+
             </View>
           </View>
         </TouchableOpacity>
