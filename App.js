@@ -24,6 +24,8 @@ import slider from './components/slider';
 import Pagination from './components/pagination/Pagination';
 import Posts from './components/pagination/Post';
 
+import AboutNext from './components/aboutNext/About'
+import EventDetails from './components/EventDetails';
 
 console.disableYellowBox = true;
 
@@ -55,6 +57,10 @@ export default class App extends Component {
             <Stack.Screen name="Opac" component={Opac} />
             <Stack.Screen name="OpacNext" component={OpacNext} />
             <Stack.Screen name="About" component={About} />
+            
+            <Stack.Screen name="AboutNext" component={AboutNext} />
+            <Stack.Screen name="EventDetails" component={EventDetails} />
+
             <Stack.Screen name="Contact" component={Contact} />
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="Accountss" component={Account} />
