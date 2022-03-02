@@ -542,13 +542,13 @@ export default class Home extends Component {
     );
   }
 
-  // componentWillUnmount() {
-  //   BackHandler.removeEventListener(
-  //     'hardwareBackPress',
+  componentWillUnmount() {
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
 
-  //     this.disableBackButton(),
-  //   );
-  // }
+      this.disableBackButton(),
+    );
+  }
 
   disableBackButton() {
     BackHandler.exitApp();
@@ -637,7 +637,7 @@ export default class Home extends Component {
 
                   {/* ---------PROFILE */}
                   <View style={{flexDirection: 'row'}}>
-                    <View style={{width: '31%', marginTop: 10}}>
+                    <View style={[styles.bxShoadow,{width: '31%', marginTop: 10}]}>
                       <TouchableOpacity
                         onPress={() => this.props.navigation.push('Profile')}>
                         <LinearGradient
@@ -672,7 +672,7 @@ export default class Home extends Component {
                     {/*  ---------------------------ACCOUNT------------------------------ */}
                     <View style={{width: '31%', marginLeft: 10, marginTop: 10}}>
                       <TouchableOpacity
-                        // style={styles.button}
+                        style={styles.bxShoadow}
                         onPress={() =>
                           this.props.navigation.navigate('Accountss')
                         }>
@@ -705,7 +705,7 @@ export default class Home extends Component {
                     </View>
 
                     {/* -----------------ABOUT--------------------------- */}
-                    <View style={{width: '31%', marginLeft: 10, marginTop: 10}}>
+                    <View style={[styles.bxShoadow,{width: '31%', marginLeft: 10, marginTop: 10}]}>
                       <TouchableOpacity
                         onPress={() => this.props.navigation.push('About')}>
                         <LinearGradient
@@ -750,7 +750,7 @@ export default class Home extends Component {
                   {/* -----------------CHECKOUT------------------------------ */}
 
                   <View style={{flexDirection: 'row', marginTop: 10}}>
-                    <View style={{width: '31%', marginTop: 10}}>
+                    <View style={[styles.bxShoadow,{width: '31%', marginTop: 10}]}>
                       <TouchableOpacity
                         onPress={() => this.props.navigation.push('Opac')}>
                         <LinearGradient
@@ -791,7 +791,7 @@ export default class Home extends Component {
                     {/*  ---------------------------ACCOUNT------------------------------ */}
                     <View style={{width: '31%', marginLeft: 10, marginTop: 10}}>
                       <TouchableOpacity
-                        // style={styles.button}
+                        style={styles.bxShoadow}
                         onPress={() => this.props.navigation.push('Eresource')}>
                         <LinearGradient
                           colors={['#F3F3F3', '#F3F3F3']}
@@ -827,7 +827,7 @@ export default class Home extends Component {
                     </View>
 
                     {/* -----------------Search Book (OPAC)--------------------------- */}
-                    <View style={{width: '31%', marginLeft: 10, marginTop: 10}}>
+                    <View style={[styles.bxShoadow,{width: '31%', marginLeft: 10, marginTop: 10}]}>
                       <TouchableOpacity
                         onPress={() => this.props.navigation.push('Contact')}>
                         <LinearGradient
@@ -1333,7 +1333,7 @@ export default class Home extends Component {
                     {/* ------------------Quote----------------------------- */}
 
                     {this.state.showQuote ? (
-                      <View style={{marginBottom: '20%'}}>
+                      <View style={{marginBottom: '20%',}}>
                         <View
                           style={{
                             borderBottomWidth: 1,
@@ -1396,6 +1396,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
+  bxShoadow:{
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.00,
+    elevation: 1
+  },
   uNme: {
     fontSize: 30,
     color: '#fff',
@@ -1453,6 +1461,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     padding: 10,
     borderRadius: 10,
+    // borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.00,
+    elevation: 1
   },
 
   textAreaContainer: {
