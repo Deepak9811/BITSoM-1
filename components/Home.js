@@ -48,7 +48,7 @@ export default class Home extends Component {
 
       eventData: [],
       showEvents: false,
-      showFeedBack: false,
+      showFeedBack: true,
       checked: false,
       showFeedData: false,
       feedData: [],
@@ -195,7 +195,7 @@ export default class Home extends Component {
                 validUpto: validUpto[i],
                 active: active[i],
                 mcq: mcq[i],
-                star: i,
+                star: 0,
               });
             }
 
@@ -993,12 +993,13 @@ export default class Home extends Component {
                               style={{
                                 borderBottomWidth: 1,
                                 borderBottomColor: '#fff',
+                                marginBottom:"10%"
                               }}></View>
 
-                            <View
+                            {/* <View
                               style={{marginBottom: '5%', marginTop: '10%'}}>
                               <Text>Feedback.</Text>
-                            </View>
+                            </View> */}
 
                             <View style={styles.secondContainer}>
                               <>
@@ -1021,7 +1022,7 @@ export default class Home extends Component {
                                       </Text>
                                     </View>
 
-                                    {this.state.showFeedBack ? (
+                                    {/* {this.state.showFeedBack ? (
                                       <TouchableOpacity
                                         style={styles.rightIcon}
                                         onPress={() => this.HideFeed()}>
@@ -1043,7 +1044,7 @@ export default class Home extends Component {
                                           style={[styles.rightM]}
                                         />
                                       </TouchableOpacity>
-                                    )}
+                                    )} */}
                                   </View>
                                 ) : (
                                   <View
@@ -1117,6 +1118,7 @@ export default class Home extends Component {
                                         this.state.showOption = true;
                                       }
                                     } else {
+                                      this.state.showMcqAnswer = true;
                                       this.state.newMcqData = [
                                         {
                                           answer: 'item.mcq',
@@ -1321,7 +1323,7 @@ export default class Home extends Component {
                                     </LinearGradient>
                                   </TouchableOpacity>
                                 </View>
-                              ) : null}
+                            ) : null} 
                             </View>
                           </View>
                         ) : null}
