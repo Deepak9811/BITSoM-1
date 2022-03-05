@@ -99,7 +99,7 @@ export default class Home extends Component {
     })
       .then(result => {
         result.json().then(resp => {
-          // console.log('resp event details :- ', resp);
+          console.log('resp event details :- ', resp);
           if (resp.status === 'success') {
             this.setState({
               eventData: resp.data,
@@ -144,7 +144,7 @@ export default class Home extends Component {
     })
       .then(result => {
         result.json().then(resp => {
-          // console.log("resp FeedBack details :- ", resp.data)
+          // console.log('resp FeedBack details :- ', resp.data[0].heading);
           if (resp.status === 'success') {
             let FormatData = [];
             // const nwdatamcq = resp.data.map((item, i) => {
@@ -166,6 +166,7 @@ export default class Home extends Component {
             // })
 
             this.setState({
+              fdtitle:resp.data[0].heading,
               // data: FormatData,
               feedData: resp.data,
               // mcqData: nwdatamcq,
@@ -200,7 +201,7 @@ export default class Home extends Component {
             }
 
             // alert(Selected);
-            // console.log('total rate :- ', Selected);
+            console.log('total rate :- ', Selected);
 
             this.setState({
               startData: Selected,
@@ -493,22 +494,19 @@ export default class Home extends Component {
                 </View>
               ) : null}
 
-<View
-                  style={{
-                    backgroundColor: '#fff',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: 2,
-                    textAlign:"center"
-                  }}>
-                  <Text style={{padding: 5}}>{item.title}</Text>
-                  <Text
-                    style={{paddingTop: 2, paddingLeft: 5, paddingBottom: 5}}>
-                    {item.author}
-                  </Text>
-                </View>
-
-
+              <View
+                style={{
+                  backgroundColor: '#fff',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  padding: 2,
+                  textAlign: 'center',
+                }}>
+                <Text style={{padding: 5}}>{item.title}</Text>
+                <Text style={{paddingTop: 2, paddingLeft: 5, paddingBottom: 5}}>
+                  {item.author}
+                </Text>
+              </View>
             </View>
           </View>
         </TouchableOpacity>
@@ -637,8 +635,10 @@ export default class Home extends Component {
 
                   {/* ---------PROFILE */}
                   <View style={{flexDirection: 'row'}}>
-                    <View style={[styles.bxShoadow,{width: '31%', marginTop: 10}]}>
+                    <View
+                      style={ {width: '31%', marginTop: 10}}>
                       <TouchableOpacity
+                      style={styles.bxShoadow}
                         onPress={() => this.props.navigation.push('Profile')}>
                         <LinearGradient
                           colors={['#F3F3F3', '#F3F3F3']}
@@ -705,8 +705,10 @@ export default class Home extends Component {
                     </View>
 
                     {/* -----------------ABOUT--------------------------- */}
-                    <View style={[styles.bxShoadow,{width: '31%', marginLeft: 10, marginTop: 10}]}>
+                    <View
+                      style={{width: '31%', marginLeft: 10, marginTop: 10}}>
                       <TouchableOpacity
+                      style={styles.bxShoadow}
                         onPress={() => this.props.navigation.push('About')}>
                         <LinearGradient
                           colors={['#F3F3F3', '#F3F3F3']}
@@ -750,8 +752,10 @@ export default class Home extends Component {
                   {/* -----------------CHECKOUT------------------------------ */}
 
                   <View style={{flexDirection: 'row', marginTop: 10}}>
-                    <View style={[styles.bxShoadow,{width: '31%', marginTop: 10}]}>
+                    <View
+                      style={ {width: '31%', marginTop: 10}}>
                       <TouchableOpacity
+                      style={styles.bxShoadow}
                         onPress={() => this.props.navigation.push('Opac')}>
                         <LinearGradient
                           colors={['#F3F3F3', '#F3F3F3']}
@@ -827,8 +831,10 @@ export default class Home extends Component {
                     </View>
 
                     {/* -----------------Search Book (OPAC)--------------------------- */}
-                    <View style={[styles.bxShoadow,{width: '31%', marginLeft: 10, marginTop: 10}]}>
+                    <View
+                      style={{width: '31%', marginLeft: 10, marginTop: 10}}>
                       <TouchableOpacity
+                      style={styles.bxShoadow}
                         onPress={() => this.props.navigation.push('Contact')}>
                         <LinearGradient
                           colors={['#F3F3F3', '#F3F3F3']}
@@ -868,40 +874,32 @@ export default class Home extends Component {
                   {/* ------------------------------SLIDER----------------------------------------------------- */}
 
                   <View style={{marginBottom: '5%', marginTop: '8%'}}>
-
-
-                    
-
                     {this.state.showSlider ? (
                       <>
-                      
-                      <View
-                      style={{
-                        borderBottomWidth: 1,
-                        borderBottomColor: '#fff',
-                        marginBottom: '6%',
-                      }}></View>
+                        <View
+                          style={{
+                            borderBottomWidth: 1,
+                            borderBottomColor: '#fff',
+                            marginBottom: '6%',
+                          }}></View>
 
+                        <View>
+                          <Text>Latest books in your library.</Text>
+                        </View>
 
-                     
-
-                    <View>
-                      <Text>Latest books in your library.</Text>
-                    </View>
-
-                      <View style={{marginTop: '8%', marginBottom: '3%'}}>
-                        <Carousel
-                          layout={'default'}
-                          layoutCardOffset={18}
-                          ref={c => {
-                            this._carousel = c;
-                          }}
-                          data={this.state.sliderData}
-                          renderItem={this._renderItem}
-                          sliderWidth={viewportWidth}
-                          itemWidth={150}
-                        />
-                      </View>
+                        <View style={{marginTop: '8%', marginBottom: '3%'}}>
+                          <Carousel
+                            layout={'default'}
+                            layoutCardOffset={18}
+                            ref={c => {
+                              this._carousel = c;
+                            }}
+                            data={this.state.sliderData}
+                            renderItem={this._renderItem}
+                            sliderWidth={viewportWidth}
+                            itemWidth={150}
+                          />
+                        </View>
                       </>
                     ) : (
                       <View style={styles.activityIndicatorStyle}>
@@ -969,7 +967,13 @@ export default class Home extends Component {
                                             height: 50,
                                             borderRadius: 50,
                                           }}
-                                          source={{uri: item.image}}
+                                          source={{
+                                            uri:
+                                              item.image !== ''
+                                                ? item.image
+                                                : undefined,
+                                          }}
+                                          // source={{uri: item.image}}
                                         />
                                       </View>
                                     </View>
@@ -993,7 +997,7 @@ export default class Home extends Component {
                               style={{
                                 borderBottomWidth: 1,
                                 borderBottomColor: '#fff',
-                                marginBottom:"10%"
+                                marginBottom: '10%',
                               }}></View>
 
                             {/* <View
@@ -1001,15 +1005,16 @@ export default class Home extends Component {
                               <Text>Feedback.</Text>
                             </View> */}
 
-                            <View style={styles.secondContainer}>
+                            <View style={[styles.secondContainer,{alignItems:"flex-start"}]}>
                               <>
                                 {this.state.showResponse ? (
                                   <View
                                     style={{
-                                      flexDirection: 'row',
-                                      justifyContent: 'space-between',
+                                      width:"100%"
+                                      // flexDirection: 'row',
+                                      // justifyContent: 'space-between',
                                     }}>
-                                    <View style={{justifyContent: 'center'}}>
+                                    {/* <View style={{justifyContent: 'center'}}>
                                       <Text
                                         style={[
                                           {
@@ -1019,6 +1024,12 @@ export default class Home extends Component {
                                           },
                                         ]}>
                                         Feedback
+                                      </Text>
+                                    </View> */}
+
+                                    <View style={styles.fdTitle}>
+                                      <Text style={styles.txtfd}>
+                                        {this.state.fdtitle}
                                       </Text>
                                     </View>
 
@@ -1126,14 +1137,25 @@ export default class Home extends Component {
                                           active: item.active,
                                           star: item.star,
                                           starLenght: i,
+                                          heading: item.heading,
                                         },
                                       ];
                                     }
                                     return (
                                       <React.Fragment key={i}>
                                         <View style={{flexDirection: 'row'}}>
-                                          <Text>{i + 1}. </Text>
-                                          <Text>{item.question}</Text>
+                                          {/* <Text style={{paddingLeft: '2%'}}>
+                                            {i + 1}.
+                                          </Text> */}
+                                          <Text
+                                            style={{
+                                              paddingRight: '5%',
+                                              textAlign: 'left',
+                                              marginTop:"5%"
+                                            }}>
+                                    
+                                            {item.question}
+                                          </Text>
                                         </View>
 
                                         <View style={{flexDirection: 'row'}}>
@@ -1142,6 +1164,7 @@ export default class Home extends Component {
                                               style={{
                                                 width: '10%',
                                                 marginTop: '5%',
+                                                marginLeft: '4%',
                                               }}>
                                               <RadioGroup
                                                 radioButtons={
@@ -1164,7 +1187,7 @@ export default class Home extends Component {
                                             <View style={{marginTop: '7%'}}>
                                               {this.state.newMcqData.map(
                                                 (item, i) => {
-                                                  // { console.log("item.answer 3 :- ",item.star,item.starLenght) }
+                                                  // { console.log("item.answer 3 :- ", item) }
                                                   // this.state.showOption = true
                                                   {
                                                     if (
@@ -1216,7 +1239,6 @@ export default class Home extends Component {
                                                                 style={[
                                                                   styles.title,
                                                                 ]}>
-                                                                {' '}
                                                                 {item.answer}
                                                               </Text>
                                                             </View>
@@ -1323,7 +1345,7 @@ export default class Home extends Component {
                                     </LinearGradient>
                                   </TouchableOpacity>
                                 </View>
-                            ) : null} 
+                              ) : null}
                             </View>
                           </View>
                         ) : null}
@@ -1335,7 +1357,7 @@ export default class Home extends Component {
                     {/* ------------------Quote----------------------------- */}
 
                     {this.state.showQuote ? (
-                      <View style={{marginBottom: '20%',}}>
+                      <View style={{marginBottom: '20%'}}>
                         <View
                           style={{
                             borderBottomWidth: 1,
@@ -1351,8 +1373,6 @@ export default class Home extends Component {
                         </View>
                       </View>
                     ) : null}
-
-
                   </View>
                 </View>
 
@@ -1398,13 +1418,13 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  bxShoadow:{
+  bxShoadow: {
     borderRadius: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.18,
-    shadowRadius: 1.00,
-    elevation: 1
+    shadowRadius: 1.0,
+    elevation: 1,
   },
   uNme: {
     fontSize: 30,
@@ -1465,10 +1485,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     // borderRadius: 10,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
+    shadowOffset: {width: 0, height: 1},
     shadowOpacity: 0.18,
-    shadowRadius: 1.00,
-    elevation: 1
+    shadowRadius: 1.0,
+    elevation: 1,
   },
 
   textAreaContainer: {
@@ -1498,4 +1518,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
+
+  fdTitle: {
+    // justifyContent: 'center',
+    width:"100%",
+    marginTop: '5%',
+    borderBottomWidth: 1,
+    paddingBottom: '3%',
+    borderColor: '#E2E2E2',
+  },
+  txtfd: {textTransform: 'capitalize', fontSize: 18,width:"100%"},
 });

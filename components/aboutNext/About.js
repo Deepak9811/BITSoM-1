@@ -32,6 +32,8 @@ export default class About extends Component {
             const imageUrlAbout = JSON.parse(await AsyncStorage.getItem("imageUrlAbout"))
             const bodyText = JSON.parse(await AsyncStorage.getItem("bodyText"))
 
+            console.log("imageUrlAbout :- ",imageUrlAbout)
+
 
             const body = bodyText.replace(/<(.|\n)*?>/g, '');
 
@@ -45,9 +47,14 @@ export default class About extends Component {
 
             })
 
-            if (this.state.image != "") {
+            if (this.state.image !== "") {
                 this.setState({
                     loader: false
+                })
+            }else{
+                this.setState({
+                    loader: false,
+                    ShowImage:true
                 })
             }
 
@@ -80,7 +87,7 @@ export default class About extends Component {
                     <View style={styles.body}>
                         {/* <Text style={{ fontSize: 25, fontWeight: "600", marginBottom: "6%", }}>Heading</Text> */}
 
-                        <Image source={{ uri: this.state.image }} resizeMode="cover" style={{ height: 250, width: 320, marginBottom: "5%" }} />
+                        <Image source={{ uri: this.state.image } }  resizeMode="contain" style={{ height: 250, width: 320, marginBottom: "5%",display:this.state.ShowImage ? "none": "flex" }} />
                         {/* <Text style={{}}>{this.state.bodyText}</Text> */}
                         {/* <WebView style={{  width: 800, height: "100%" }}
                             source= {{html: `${this.state.bodyText}`}} /> */}
